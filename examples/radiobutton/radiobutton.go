@@ -9,7 +9,7 @@ import (
 )
 
 import (
-	. "github.com/lxn/walk/declarative"
+	. "github.com/muumlover/walk/declarative"
 )
 
 type Foo struct {

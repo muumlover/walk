@@ -11,8 +11,8 @@ import (
 )
 
 import (
-	"github.com/lxn/walk"
 	"github.com/lxn/win"
+	"github.com/muumlover/walk"
 )
 
 type ListBox struct {

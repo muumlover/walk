@@ -7,7 +7,7 @@
 package declarative
 
 import (
-	"github.com/lxn/walk"
+	"github.com/muumlover/walk"
 )
 
 type CaseMode uint32

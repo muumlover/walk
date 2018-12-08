@@ -11,8 +11,8 @@ import (
 )
 
 import (
-	"github.com/lxn/walk"
-	. "github.com/lxn/walk/declarative"
+	"github.com/muumlover/walk"
+	. "github.com/muumlover/walk/declarative"
 )
 
 func main() {

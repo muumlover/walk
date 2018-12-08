@@ -12,8 +12,8 @@ import (
 )
 
 import (
-	"github.com/lxn/walk"
-	. "github.com/lxn/walk/declarative"
+	"github.com/muumlover/walk"
+	. "github.com/muumlover/walk/declarative"
 )
 
 func main() {
@@ -53,7 +53,7 @@ func RunMainWindow() error {
 		Layout:  VBox{MarginsZero: true},
 		Children: []Widget{
 			TableView{
-				Name: "tableView", // Name is needed for settings persistence
+				Name:                  "tableView", // Name is needed for settings persistence
 				AlternatingRowBGColor: walk.RGB(255, 255, 200),
 				ColumnsOrderable:      true,
 				Columns: []TableViewColumn{
