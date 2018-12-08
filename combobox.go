@@ -576,6 +576,16 @@ func (cb *ComboBox) TextChanged() *Event {
 	return cb.textChangedPublisher.Event()
 }
 
+func (cb *ComboBox) Value() interface{} {
+	index := cb.CurrentIndex()
+
+	if cb.bindingValueProvider == nil || index == -1 {
+		return nil
+	}
+
+	return cb.bindingValueProvider.BindingValue(index)
+}
+
 func (cb *ComboBox) EditingFinished() *Event {
 	return cb.editingFinishedPublisher.Event()
 }
