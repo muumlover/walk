@@ -34,6 +34,7 @@ type ComboBox struct {
 	selChangeIndex               int
 	maxLength                    int
 	currentIndexChangedPublisher EventPublisher
+	dropDownPublisher            EventPublisher
 	textChangedPublisher         EventPublisher
 	editingFinishedPublisher     EventPublisher
 	editOrigWndProcPtr           uintptr
@@ -378,12 +379,18 @@ func (cb *ComboBox) SetModel(mdl interface{}) error {
 		cb.attachModel()
 	}
 
+	index := cb.prevCurIndex
+
 	if err := cb.resetItems(); err != nil {
 		return err
 	}
 
-	if !cb.Editable() && model != nil && model.ItemCount() == 1 {
-		cb.SetCurrentIndex(0)
+	if !cb.Editable() && model != nil && model.ItemCount() >= 1 {
+		if index >= 0 && index < model.ItemCount() {
+			cb.SetCurrentIndex(index)
+		} else {
+			cb.SetCurrentIndex(0)
+		}
 	}
 
 	return cb.Invalidate()
@@ -526,6 +533,10 @@ func (cb *ComboBox) calculateMaxItemTextWidth() int {
 	return maxWidth
 }
 
+func (cb *ComboBox) DropDown() *Event {
+	return cb.dropDownPublisher.Event()
+}
+
 func (cb *ComboBox) CurrentIndex() int {
 	return int(int32(cb.SendMessage(win.CB_GETCURSEL, 0, 0)))
 }
@@ -597,6 +608,9 @@ func (cb *ComboBox) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 		selIndex := cb.CurrentIndex()
 
 		switch code {
+		case win.CBN_DROPDOWN:
+			cb.dropDownPublisher.Publish()
+
 		case win.CBN_EDITCHANGE:
 			cb.editing = true
 			cb.selChangeIndex = -1

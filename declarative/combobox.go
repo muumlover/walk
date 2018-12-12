@@ -57,6 +57,7 @@ type ComboBox struct {
 	Format                string
 	MaxLength             int
 	Model                 interface{}
+	OnDropDown            walk.EventHandler
 	OnCurrentIndexChanged walk.EventHandler
 	OnEditingFinished     walk.EventHandler
 	OnTextChanged         walk.EventHandler
@@ -104,6 +105,9 @@ func (cb ComboBox) Create(builder *Builder) error {
 
 		if cb.OnCurrentIndexChanged != nil {
 			w.CurrentIndexChanged().Attach(cb.OnCurrentIndexChanged)
+		}
+		if cb.OnDropDown != nil {
+			w.DropDown().Attach(cb.OnDropDown)
 		}
 		if cb.OnEditingFinished != nil {
 			w.EditingFinished().Attach(cb.OnEditingFinished)
